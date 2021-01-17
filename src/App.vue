@@ -1,20 +1,48 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <MainBg :poster="posterUrl" />
+    <Header />
+    <h2 class="title">IMDB Top 250</h2>
+    <MoviesList @changeBg="changePosterUrl" />
+    <Pagination />
   </div>
 </template>
 
+<script>
+import { mapActions } from "vuex";
+import MoviesList from "./components/MoviesList.vue";
+import Header from "./components/Header.vue";
+import MainBg from "./components/MainBg.vue";
+import Pagination from "./components/Pagination.vue";
+
+export default {
+  name: "App",
+  components: {
+    MainBg,
+    MoviesList,
+    Header,
+    Pagination,
+  },
+  data: () => ({
+    posterUrl: "",
+  }),
+  methods: {
+    ...mapActions("movies", ["fetchMovies"]),
+    changePosterUrl(url) {
+      this.posterUrl = url;
+    },
+  },
+};
+</script>
+
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #dadada;
 }
 
 #nav {
@@ -28,5 +56,10 @@
       color: #42b983;
     }
   }
+}
+
+.title {
+  margin: 2rem;
+  font-size: 2rem;
 }
 </style>

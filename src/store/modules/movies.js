@@ -32,6 +32,9 @@ const moviesStore = {
     totalMovies({ top250Ids }) {
       return top250Ids.length;
     },
+    allIDs({ top250Ids }) {
+      return top250Ids;
+    },
   },
   mutations: {
     ADD_MOVIES_LIST(state, movies) {
@@ -40,10 +43,8 @@ const moviesStore = {
     SET_CURRENT_PAGE(state, page) {
       state.currentPage = page;
     },
-    DELETE_FROM_TOP250(state, id) {
-      const index = state.top250Ids.indexOf(id);
+    DELETE_FROM_TOP250(state, index) {
       state.top250Ids.splice(index, 1);
-      console.log(index);
     },
   },
   actions: {
@@ -76,12 +77,31 @@ const moviesStore = {
         dispatch("toggleLoader", false, { root: true });
       }
     },
+    async fetchSearch({ commit, dispatch }, query) {
+      try {
+        dispatch("toggleLoader", true, { root: true });
+        query = query.target.elements["search"].value;
+        const response = await axios.get(`/?s=${query}`);
+        if (response.Error) {
+          throw Error(response.Error);
+        }
+        const movies = serializeMovies(response.Search);
+        commit("ADD_MOVIES_LIST", movies);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        dispatch("toggleLoader", false, { root: true });
+      }
+    },
     setCurrentPage({ commit, dispatch }, page) {
       commit("SET_CURRENT_PAGE", page);
       dispatch("fetchMovies");
     },
-    deleteMovie({ commit }, id) {
-      commit("DELETE_FROM_TOP250", id);
+    deleteMovie({ commit, state }, id) {
+      const index = state.top250Ids.indexOf(id);
+      if (index !== -1) {
+        commit("DELETE_FROM_TOP250", index);
+      }
     },
   },
 };

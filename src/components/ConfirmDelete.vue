@@ -4,7 +4,7 @@
     centered
     hide-footer
     hide-header-close
-    :title="titleconfirm"
+    :title="titleConfirm"
     header-bg-variant="dark"
     header-text-variant="light"
     modal-header-close="close"
@@ -39,15 +39,13 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ConfirmDelete",
   data: () => ({
-    titleconfirm: "Please, confirm that you want delete:",
-    movie: "Some Movie",
+    titleConfirm: "Please, confirm that you want delete:",
   }),
   computed: {
     ...mapGetters("modal", ["titleMovie", "movieId"]),
   },
   methods: {
     confirm() {
-      console.log(this.movieId);
       this.deleteMovie(this.movieId);
       this.fetchMovies();
       this.hideModal();

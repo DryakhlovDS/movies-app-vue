@@ -53,8 +53,9 @@ const moviesStore = {
       },
       root: true,
     },
-    async fetchMovies({ commit, getters }) {
+    async fetchMovies({ commit, getters, dispatch }) {
       try {
+        dispatch("toggleLoader", true, { root: true });
         const { slicedIDs, currentPage, moviesPerPage } = getters;
         const from = (currentPage - 1) * moviesPerPage;
         const to = currentPage * moviesPerPage;
@@ -71,6 +72,8 @@ const moviesStore = {
         commit("ADD_MOVIES_LIST", movies);
       } catch (err) {
         console.log(err);
+      } finally {
+        dispatch("toggleLoader", false, { root: true });
       }
     },
     setCurrentPage({ commit, dispatch }, page) {

@@ -1,21 +1,25 @@
 <template>
   <div id="app">
+    <Loader />
     <MainBg :poster="posterUrl" />
     <Header />
     <h2 class="title">IMDB Top 250</h2>
-    <MoviesList @changeBg="changePosterUrl" />
+    <MoviesList @changeBg="changePosterUrl" @aboutMovie="changeMovie" />
     <Pagination />
     <ConfirmDelete />
+    <Notification :movie="movie" />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import MoviesList from "./components/MoviesList.vue";
 import Header from "./components/Header.vue";
 import MainBg from "./components/MainBg.vue";
 import Pagination from "./components/Pagination.vue";
 import ConfirmDelete from "./components/ConfirmDelete.vue";
+import Notification from "./components/Notification.vue";
+import Loader from "./components/Loader.vue";
 
 export default {
   name: "App",
@@ -25,14 +29,23 @@ export default {
     Header,
     Pagination,
     ConfirmDelete,
+    Notification,
+    Loader,
   },
   data: () => ({
     posterUrl: "",
+    movie: {},
   }),
+  computed: {
+    ...mapGetters(["isLoading"]),
+  },
   methods: {
     ...mapActions("movies", ["fetchMovies"]),
     changePosterUrl(url) {
       this.posterUrl = url;
+    },
+    changeMovie(movie) {
+      this.movie = movie;
     },
   },
 };

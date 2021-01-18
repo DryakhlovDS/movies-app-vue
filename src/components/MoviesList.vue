@@ -5,6 +5,7 @@
       @mouseover.native="onMouseOver(movie.Poster)"
       :movie="movie"
       :key="key"
+      @click.native="onClickMovie(movie)"
     />
   </b-container>
 </template>
@@ -24,6 +25,11 @@ export default {
   methods: {
     onMouseOver(poster) {
       this.$emit("changeBg", poster);
+    },
+    onClickMovie(movie) {
+      this.$emit("aboutMovie", movie);
+      console.log(movie);
+      this.$bvModal.show("aboutMovie");
     },
   },
 };

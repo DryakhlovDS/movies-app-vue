@@ -8,7 +8,10 @@
       <p class="movie__year">{{ movie.Year }}</p>
       <div class="movie__control">
         <b-button class="movie__btn">Edit</b-button>
-        <b-button class="movie__btn" variant="danger" @click="deleteMovie"
+        <b-button
+          class="movie__btn"
+          variant="danger"
+          @click.prevent="deleteMovie"
           >Delete</b-button
         >
       </div>

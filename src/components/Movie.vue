@@ -8,13 +8,17 @@
       <p class="movie__year">{{ movie.Year }}</p>
       <div class="movie__control">
         <b-button class="movie__btn">Edit</b-button>
-        <b-button class="movie__btn" variant="danger">Delete</b-button>
+        <b-button class="movie__btn" variant="danger" @click="deleteMovie"
+          >Delete</b-button
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Movie",
   props: {
@@ -31,6 +35,17 @@ export default {
     },
     posterUrl() {
       return this.movie.Poster;
+    },
+  },
+  methods: {
+    ...mapActions("modal", ["setInfoMovie"]),
+    deleteMovie() {
+      const movieInfo = {
+        id: this.movie.imdbID,
+        title: this.movie.Title,
+      };
+      this.setInfoMovie(movieInfo);
+      this.$bvModal.show("confirm");
     },
   },
 };

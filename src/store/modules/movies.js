@@ -40,6 +40,11 @@ const moviesStore = {
     SET_CURRENT_PAGE(state, page) {
       state.currentPage = page;
     },
+    DELETE_FROM_TOP250(state, id) {
+      const index = state.top250Ids.indexOf(id);
+      state.top250Ids.splice(index, 1);
+      console.log(index);
+    },
   },
   actions: {
     initMovieStore: {
@@ -71,6 +76,9 @@ const moviesStore = {
     setCurrentPage({ commit, dispatch }, page) {
       commit("SET_CURRENT_PAGE", page);
       dispatch("fetchMovies");
+    },
+    deleteMovie({ commit }, id) {
+      commit("DELETE_FROM_TOP250", id);
     },
   },
 };

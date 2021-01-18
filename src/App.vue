@@ -5,6 +5,7 @@
     <h2 class="title">IMDB Top 250</h2>
     <MoviesList @changeBg="changePosterUrl" />
     <Pagination />
+    <ConfirmDelete />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import MoviesList from "./components/MoviesList.vue";
 import Header from "./components/Header.vue";
 import MainBg from "./components/MainBg.vue";
 import Pagination from "./components/Pagination.vue";
+import ConfirmDelete from "./components/ConfirmDelete.vue";
 
 export default {
   name: "App",
@@ -22,6 +24,7 @@ export default {
     MoviesList,
     Header,
     Pagination,
+    ConfirmDelete,
   },
   data: () => ({
     posterUrl: "",

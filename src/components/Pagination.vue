@@ -29,5 +29,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.b-pagination::v-deep .page-item {
+  color: #ffffff;
+  font-size: 1.2rem;
+  background-color: transparent;
 
+  &.active {
+    & .page-link {
+      border-color: #ffffff;
+      background-color: #ffffff;
+      color: #530f75;
+      box-shadow: none;
+    }
+  }
+
+  & .page-link {
+    color: #ffffff;
+    font-size: 1.2rem;
+    background-color: transparent;
+  }
+}
 </style>

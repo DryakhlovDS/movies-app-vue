@@ -1,5 +1,8 @@
 <template>
-  <b-container v-if="!isQueryMovies" class="pt-3 d-flex justify-content-center">
+  <b-container
+    v-if="!isQueryMovies"
+    class="pt-3 mt-auto d-flex justify-content-center"
+  >
     <b-pagination
       first-number
       last-number

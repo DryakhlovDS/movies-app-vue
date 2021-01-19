@@ -7,7 +7,17 @@
     <MoviesList @changeBg="changePosterUrl" @aboutMovie="changeMovie" />
     <Pagination />
     <ConfirmDelete />
-    <About :movie="movie" />
+    <b-modal
+      id="aboutMovie"
+      centered
+      size="xl"
+      hide-footer
+      :title="movie.Title"
+      header-bg-variant="dark"
+      header-text-variant="light"
+    >
+      <About :movie="movie" />
+    </b-modal>
     <Notification />
   </div>
 </template>
@@ -60,23 +70,11 @@ export default {
 <style lang="scss">
 #app {
   position: relative;
+  min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #dadada;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>

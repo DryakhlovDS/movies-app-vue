@@ -1,33 +1,78 @@
 <template>
-  <b-modal
-    id="aboutMovie"
-    centered
-    size="xl"
-    hide-footer
-    :title="movie.Title"
-    header-bg-variant="dark"
-    header-text-variant="light"
-  >
-    <div class="about">
-      <div class="about__aside">
-        <img :src="movie.Poster" alt="poster" />
-        <div class="about__control">
-          <b-button class="about__btn">Edit</b-button>
-          <b-button
-            class="about__btn"
-            variant="danger"
-            @click.prevent="deleteMovie"
-            >Delete</b-button
-          >
-        </div>
-      </div>
-
-      <div class="about__main">
-        <p v-for="(value, key) in movie" :key="key">{{ key }}: {{ value }}</p>
-        {{ movie }}
+  <div class="about">
+    <div class="about__aside">
+      <img class="about__poster" :src="movie.Poster" alt="poster" />
+      <div class="about__control">
+        <b-button class="about__btn">Edit</b-button>
+        <b-button
+          class="about__btn"
+          variant="danger"
+          @click.prevent="deleteMovie"
+          >Delete</b-button
+        >
       </div>
     </div>
-  </b-modal>
+
+    <div class="about__main">
+      <b-form-rating
+        v-model="movie.imdbRating"
+        stars="10"
+        readonly
+        show-value
+        precision="1"
+        no-border
+        show-value-max
+        variant="warning"
+        class="about__rating px-0"
+      ></b-form-rating>
+      <p class="about__description">{{ movie.Plot }}</p>
+      <div class="mt-3 mb-4">
+        <b-badge variant="dark" :class="classBadges">
+          Year: {{ movie.Year }}
+        </b-badge>
+        <b-badge variant="dark" :class="classBadges">
+          Type: {{ movie.Type }}
+        </b-badge>
+        <b-badge variant="dark" :class="classBadges">
+          Runtime: {{ movie.Runtime }}
+        </b-badge>
+        <b-badge variant="dark" :class="classBadges">
+          Genre: {{ movie.Genre }}
+        </b-badge>
+        <b-badge variant="dark" :class="classBadges">
+          Language: {{ movie.Language }}
+        </b-badge>
+      </div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>Production</th>
+            <td>{{ movie.Production }}</td>
+          </tr>
+          <tr>
+            <th>Country</th>
+            <td>{{ movie.Country }}</td>
+          </tr>
+          <tr>
+            <th>Director</th>
+            <td>{{ movie.Director }}</td>
+          </tr>
+          <tr>
+            <th>Writer</th>
+            <td>{{ movie.Writer }}</td>
+          </tr>
+          <tr>
+            <th>Actors</th>
+            <td>{{ movie.Actors }}</td>
+          </tr>
+          <tr>
+            <th>Awards</th>
+            <td>{{ movie.Awards }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -41,6 +86,9 @@ export default {
       default: () => ({}),
     },
   },
+  data: () => ({
+    classBadges: "mr-2 p-2 mt-2",
+  }),
   computed: {},
   methods: {
     ...mapActions("modal", ["setInfoMovie"]),
@@ -65,6 +113,12 @@ export default {
     margin-right: 2rem;
   }
 
+  &__poster {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   &__control {
     margin-top: 2rem;
     display: flex;
@@ -76,6 +130,37 @@ export default {
     border: 2px solid #545b62;
     color: #545b62;
     background: transparent;
+  }
+
+  &__main {
+    width: 67%;
+  }
+
+  &__rating {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    flex-grow: 0 !important;
+    box-shadow: none;
+
+    &::v-deep {
+      & .b-rating-star,
+      .b-rating-value {
+        flex-grow: 0 !important;
+        justify-content: flex-start;
+        padding: 0;
+        margin-right: 0.5rem;
+        font-size: 1.3rem;
+        font-weight: 300;
+      }
+    }
+  }
+
+  &__description {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    font-weight: 300;
+    text-align: justify;
   }
 }
 </style>

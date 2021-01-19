@@ -33,11 +33,13 @@ export default {
   computed: {
     posterBg() {
       return {
-        "background-image": `url(${this.movie.Poster})`,
+        "background-image": `url(${this.posterUrl})`,
       };
     },
     posterUrl() {
-      return this.movie.Poster;
+      return this.movie.Poster === "N/A"
+        ? "assets/img/no_cover.jpg"
+        : this.movie.Poster;
     },
   },
   methods: {

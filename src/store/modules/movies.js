@@ -15,6 +15,7 @@ const moviesStore = {
     moviesPerPage: 12,
     currentPage: 1,
     list: {},
+    queryMovies: false,
   },
   getters: {
     slicedIDs({ top250Ids }) {
@@ -35,6 +36,9 @@ const moviesStore = {
     allIDs({ top250Ids }) {
       return top250Ids;
     },
+    isQueryMovies({ queryMovies }) {
+      return queryMovies;
+    },
   },
   mutations: {
     ADD_MOVIES_LIST(state, movies) {
@@ -45,6 +49,9 @@ const moviesStore = {
     },
     DELETE_FROM_TOP250(state, index) {
       state.top250Ids.splice(index, 1);
+    },
+    TOGGLE_QUERY_MOVIES(state, val) {
+      state.queryMovies = val;
     },
   },
   actions: {
@@ -73,14 +80,28 @@ const moviesStore = {
         commit("ADD_MOVIES_LIST", movies);
       } catch (err) {
         console.log(err);
+        dispatch(
+          "showNotify",
+          {
+            msg: err.message,
+            title: "Error",
+            variant: "danger",
+          },
+          { root: true }
+        );
       } finally {
         dispatch("toggleLoader", false, { root: true });
+        dispatch("toggleQueryMovies", false);
       }
     },
     async fetchSearch({ commit, dispatch }, query) {
       try {
         dispatch("toggleLoader", true, { root: true });
         query = query.target.elements["search"].value;
+        if (!query) {
+          dispatch("fetchMovies");
+          return;
+        }
         const response = await axios.get(`/?s=${query}`);
         if (response.Error) {
           throw Error(response.Error);
@@ -89,8 +110,18 @@ const moviesStore = {
         commit("ADD_MOVIES_LIST", movies);
       } catch (error) {
         console.log(error);
+        dispatch(
+          "showNotify",
+          {
+            msg: error.message,
+            title: "Error",
+            variant: "danger",
+          },
+          { root: true }
+        );
       } finally {
         dispatch("toggleLoader", false, { root: true });
+        dispatch("toggleQueryMovies", true);
       }
     },
     setCurrentPage({ commit, dispatch }, page) {
@@ -102,6 +133,9 @@ const moviesStore = {
       if (index !== -1) {
         commit("DELETE_FROM_TOP250", index);
       }
+    },
+    toggleQueryMovies({ commit }, bool) {
+      commit("TOGGLE_QUERY_MOVIES", bool);
     },
   },
 };

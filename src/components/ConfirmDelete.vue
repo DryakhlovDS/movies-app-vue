@@ -49,11 +49,21 @@ export default {
       this.deleteMovie(this.movieId);
       this.fetchMovies();
       this.hideModal();
+      this.$bvModal.hide("aboutMovie");
+      this.showNotify(
+        {
+          msg: `${this.titleMovie} was deleted`,
+          variant: "success",
+          title: "Success!",
+        },
+        { root: true }
+      );
     },
     hideModal() {
       this.$bvModal.hide("confirm");
     },
     ...mapActions("movies", ["deleteMovie", "fetchMovies"]),
+    ...mapActions(["showNotify"]),
   },
 };
 </script>

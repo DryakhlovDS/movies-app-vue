@@ -1,5 +1,5 @@
 <template>
-  <b-container class="pt-3 d-flex justify-content-center">
+  <b-container v-if="!isQueryMovies" class="pt-3 d-flex justify-content-center">
     <b-pagination
       first-number
       last-number
@@ -20,7 +20,12 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Pagination",
   computed: {
-    ...mapGetters("movies", ["totalMovies", "currentPage", "moviesPerPage"]),
+    ...mapGetters("movies", [
+      "totalMovies",
+      "currentPage",
+      "moviesPerPage",
+      "isQueryMovies",
+    ]),
   },
   methods: {
     ...mapActions("movies", ["setCurrentPage"]),

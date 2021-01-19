@@ -1,28 +1,27 @@
 <template>
-  <b-modal
-    id="aboutMovie"
-    centered
-    size="xl"
-    hide-footer
-    :title="movie.Title"
-    header-bg-variant="dark"
-    header-text-variant="light"
-  >
-    <div class="d-block text-center">
-      {{ movie }}
-    </div>
-  </b-modal>
+  <div></div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Notification",
-  props: {
-    movie: {
-      type: Object,
-      default: () => ({}),
+  computed: {
+    ...mapGetters(["lastMessage"]),
+  },
+  watch: {
+    lastMessage: "makeToast",
+  },
+  methods: {
+    makeToast({ variant = "default", title = "No title", msg = "1" }) {
+      this.$bvToast.toast(msg, {
+        title: title,
+        variant: variant,
+        toaster: "b-toaster-bottom-left",
+        solid: true,
+      });
     },
   },
-  computed: {},
 };
 </script>

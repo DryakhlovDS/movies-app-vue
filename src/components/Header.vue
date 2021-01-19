@@ -59,7 +59,8 @@ export default {
 
     &:focus {
       box-shadow: none;
-      background-color: #ffffff80;
+      color: #ffffff;
+      background-color: #000000;
       border-color: #ffffff;
     }
   }

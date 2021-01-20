@@ -12,7 +12,7 @@
       :total-rows="totalMovies"
       :per-page="moviesPerPage"
       :value="currentPage"
-      @change="setCurrentPage"
+      @change="changeCurrentPage"
     />
   </b-container>
 </template>
@@ -32,6 +32,10 @@ export default {
   },
   methods: {
     ...mapActions("movies", ["setCurrentPage"]),
+    changeCurrentPage(page) {
+      this.$router.push({ query: { page } });
+      this.setCurrentPage(page);
+    },
   },
 };
 </script>

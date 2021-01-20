@@ -18,6 +18,17 @@
     >
       <About :movie="movie" />
     </b-modal>
+    <b-modal
+      id="editMovie"
+      centered
+      size="xl"
+      hide-footer
+      title="Edit movie"
+      header-bg-variant="dark"
+      header-text-variant="light"
+    >
+      <EditMovie :movie="movie" />
+    </b-modal>
     <Notification />
   </div>
 </template>
@@ -33,7 +44,7 @@ import ConfirmDelete from "./components/ConfirmDelete.vue";
 import Notification from "./components/Notification.vue";
 import Loader from "./components/Loader.vue";
 import About from "./components/About.vue";
-// add rout query
+import EditMovie from "./components/EditMovie.vue";
 
 export default {
   name: "App",
@@ -47,16 +58,27 @@ export default {
     Notification,
     Loader,
     About,
+    EditMovie,
   },
   data: () => ({
     posterUrl: "",
     movie: {},
   }),
+  watch: {
+    "$route.query": {
+      handler: "onChangeQueryPage",
+      immediate: true,
+      deep: true,
+    },
+  },
   computed: {
     ...mapGetters(["isLoading"]),
   },
   methods: {
-    ...mapActions("movies", ["fetchMovies"]),
+    ...mapActions("movies", ["fetchMovies", "setCurrentPage"]),
+    onChangeQueryPage({ page = 1 }) {
+      this.setCurrentPage(Number(page));
+    },
     changePosterUrl(url) {
       this.posterUrl = url;
     },

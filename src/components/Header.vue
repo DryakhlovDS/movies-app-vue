@@ -17,7 +17,7 @@
                 >Search</b-button
               >
             </b-nav-form>
-            <b-button size="sm" class="my-2 ml-3">Add</b-button>
+            <!-- <b-button size="sm" class="my-2 ml-3">Add</b-button> -->
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>

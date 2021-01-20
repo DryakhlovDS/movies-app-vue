@@ -7,8 +7,11 @@
       <h4 class="movie__title">{{ movie.Title }}</h4>
       <p class="movie__year">{{ movie.Year }}</p>
       <div class="movie__control">
-        <b-button class="movie__btn">Edit</b-button>
-        <b-button class="movie__btn" variant="danger" @click.stop="deleteMovie"
+        <!-- <b-button class="movie__btn" @click.stop="editMovie">Edit</b-button> -->
+        <b-button
+          class="movie__btn ml-auto"
+          variant="danger"
+          @click.stop="deleteMovie"
           >Delete</b-button
         >
       </div>
@@ -48,6 +51,9 @@ export default {
       };
       this.setInfoMovie(movieInfo);
       this.$bvModal.show("confirm");
+    },
+    editMovie() {
+      this.$bvModal.show("editMovie");
     },
   },
 };

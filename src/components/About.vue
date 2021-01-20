@@ -3,9 +3,9 @@
     <div class="about__aside">
       <img class="about__poster" :src="movie.Poster" alt="poster" />
       <div class="about__control">
-        <b-button class="about__btn">Edit</b-button>
+        <!-- <b-button class="about__btn">Edit</b-button> -->
         <b-button
-          class="about__btn"
+          class="about__btn ml-auto"
           variant="danger"
           @click.prevent="deleteMovie"
           >Delete</b-button

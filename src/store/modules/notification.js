@@ -4,7 +4,7 @@ const notificationStore = {
   },
   getters: {
     lastMessage({ messagesPool }) {
-      return messagesPool.pop();
+      return messagesPool[messagesPool.length - 1];
     },
   },
   mutations: {

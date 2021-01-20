@@ -4,10 +4,7 @@
       <img class="about__poster" :src="movie.Poster" alt="poster" />
       <div class="about__control">
         <!-- <b-button class="about__btn">Edit</b-button> -->
-        <b-button
-          class="about__btn ml-auto"
-          variant="danger"
-          @click.prevent="deleteMovie"
+        <b-button class="about__btn ml-auto" @click.prevent="deleteMovie"
           >Delete</b-button
         >
       </div>
@@ -130,6 +127,12 @@ export default {
     border: 2px solid #545b62;
     color: #545b62;
     background: transparent;
+
+    &:hover {
+      color: #ffffff;
+      border: 2px solid #dc3545;
+      background: #dc3545;
+    }
   }
 
   &__main {

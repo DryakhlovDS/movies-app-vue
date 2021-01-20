@@ -3,18 +3,18 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Notification",
   computed: {
-    ...mapMutations(["ADD_MESSAGE_POOL"]),
+    ...mapGetters(["lastMessage"]),
   },
   watch: {
-    ADD_MESSAGE_POOL: "makeToast",
+    lastMessage: "makeToast",
   },
   methods: {
-    makeToast({ variant = "default", title = "No title", msg = "1" }) {
+    makeToast({ variant = "default", title = "No title", msg = "message" }) {
       this.$bvToast.toast(msg, {
         title: title,
         variant: variant,

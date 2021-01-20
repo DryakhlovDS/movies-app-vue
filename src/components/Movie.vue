@@ -8,10 +8,7 @@
       <p class="movie__year">{{ movie.Year }}</p>
       <div class="movie__control">
         <!-- <b-button class="movie__btn" @click.stop="editMovie">Edit</b-button> -->
-        <b-button
-          class="movie__btn ml-auto"
-          variant="danger"
-          @click.stop="deleteMovie"
+        <b-button class="movie__btn ml-auto" @click.stop="deleteMovie"
           >Delete</b-button
         >
       </div>
@@ -129,6 +126,11 @@ export default {
     width: 40%;
     border: 2px solid #ffffff;
     background: transparent;
+
+    &:hover {
+      border: 2px solid #dc3545;
+      background: #dc3545;
+    }
   }
 }
 </style>

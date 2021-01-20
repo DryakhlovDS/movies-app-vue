@@ -28,7 +28,6 @@ export default {
     },
     onClickMovie(movie) {
       this.$emit("aboutMovie", movie);
-      console.log(movie);
       this.$bvModal.show("aboutMovie");
     },
   },

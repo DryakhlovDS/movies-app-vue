@@ -11,17 +11,23 @@
     </div>
 
     <div class="about__main">
-      <b-form-rating
-        v-model="movie.imdbRating"
-        stars="10"
-        readonly
-        show-value
-        precision="1"
-        no-border
-        show-value-max
-        variant="warning"
-        class="about__rating px-0"
-      ></b-form-rating>
+      <div class="d-flex align-items-center flex-wrap">
+        <label for="imdbRating">IMDB rating:</label>
+        <b-form-rating
+          id="imdbRating"
+          v-model="movie.imdbRating"
+          stars="10"
+          readonly
+          show-value
+          precision="1"
+          no-border
+          show-value-max
+          variant="warning"
+          inline
+          class="about__rating px-0"
+        ></b-form-rating>
+      </div>
+
       <p class="about__description">{{ movie.Plot }}</p>
       <div class="mt-3 mb-4">
         <b-badge variant="dark" :class="classBadges">
@@ -105,15 +111,27 @@ export default {
 .about {
   display: flex;
 
+  @media screen and (max-width: 992px) {
+    flex-direction: column-reverse;
+  }
+
   &__aside {
     width: 30%;
     margin-right: 2rem;
+
+    @media screen and (max-width: 992px) {
+      width: 100%;
+    }
   }
 
   &__poster {
     display: block;
     width: 100%;
     height: auto;
+
+    @media screen and (max-width: 992px) {
+      display: none;
+    }
   }
 
   &__control {
@@ -137,6 +155,15 @@ export default {
 
   &__main {
     width: 67%;
+    font-size: 1.12rem;
+    font-weight: 300;
+
+    & label {
+      margin-bottom: 0;
+    }
+    @media screen and (max-width: 992px) {
+      width: 100%;
+    }
   }
 
   &__rating {
@@ -144,6 +171,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     flex-grow: 0 !important;
+
     box-shadow: none;
 
     &::v-deep {
@@ -152,9 +180,15 @@ export default {
         flex-grow: 0 !important;
         justify-content: flex-start;
         padding: 0;
-        margin-right: 0.5rem;
+        margin-left: 0.5rem;
         font-size: 1.3rem;
         font-weight: 300;
+      }
+
+      & .b-rating-star {
+        @media screen and (max-width: 425px) {
+          display: none;
+        }
       }
     }
   }
